@@ -1,0 +1,33 @@
+name: Run TradingView Telegram Bot
+
+on:
+  workflow_dispatch: # Adds a manual "Run workflow" button so you can test anytime
+  schedule:
+    # Automatically starts a fresh 5h45m monitoring session every 6 hours
+    - cron: '0 */6 * * *'
+
+concurrency:
+  group: trading-bot-instance
+  cancel-in-progress: true
+
+jobs:
+  run-signals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install libraries
+        run: pip install yfinance pandas numpy requests pytz
+
+      - name: Run ICT (5m) & Positional (2h) Scanner
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python bot.py
