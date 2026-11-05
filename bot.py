@@ -12,7 +12,7 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN", "").strip()
 CHAT_ID   = os.environ.get("CHAT_ID", "").strip()
 EVENT_NAME = os.environ.get("GITHUB_EVENT_NAME", "")
 
-SYMBOL = "XAUUSD=X"  # OANDA Spot Gold Equivalent
+SYMBOL = "GC=F"  # Gold Futures (GC=F)
 CHECK_INTERVAL_SECONDS = 30
 # Run for 5 hours and 45 minutes per session before handing off to the next run
 MAX_RUNTIME_SECONDS = 5 * 3600 + 45 * 60
