@@ -14,6 +14,7 @@ EVENT_NAME = os.environ.get("GITHUB_EVENT_NAME", "")
 
 SYMBOL = "GC=F"  # Gold Futures (GC=F)
 CHECK_INTERVAL_SECONDS = 30
+PRICE_OFFSET = -10.0  # Adjusts futures price to match OANDA spot
 # Run for 5 hours and 45 minutes per session before handing off to the next run
 MAX_RUNTIME_SECONDS = 5 * 3600 + 45 * 60
 
@@ -53,6 +54,11 @@ def fetch_ohlc(symbol, interval, period):
     if df.empty:
         return df
     df = df[['Open', 'High', 'Low', 'Close']].dropna()
+    
+    # Apply price offset to match OANDA spot chart
+    for col in ['Open', 'High', 'Low', 'Close']:
+        df[col] = df[col] + PRICE_OFFSET
+        
     df.index = df.index.tz_localize('UTC') if df.index.tz is None else df.index.tz_convert('UTC')
     return df.iloc[:-1].copy()
 
@@ -62,6 +68,11 @@ def fetch_2h_ohlc(symbol):
     if df_1h.empty:
         return df_1h
     df_1h = df_1h[['Open', 'High', 'Low', 'Close']].dropna()
+    
+    # Apply price offset to match OANDA spot chart
+    for col in ['Open', 'High', 'Low', 'Close']:
+        df_1h[col] = df_1h[col] + PRICE_OFFSET
+        
     df_1h.index = df_1h.index.tz_localize('UTC') if df_1h.index.tz is None else df_1h.index.tz_convert('UTC')
     df_2h = df_1h.resample('2h', closed='left', label='left').agg({
         'Open': 'first', 'High': 'max', 'Low': 'min', 'Close': 'last'
@@ -281,7 +292,6 @@ def main():
     last_5m_ts = None
     last_2h_ts = None
 
-    # Send a welcome message to your phone whenever you manually click "Run workflow"
     if EVENT_NAME == "workflow_dispatch":
         send_telegram_Message("✅ *Bot Connected!* Monitoring *ICT (5m)* and *Positional (2h)* on XAUUSD.")
 
