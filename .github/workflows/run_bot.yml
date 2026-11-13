@@ -1,4 +1,4 @@
-name: Run TradingView Telegram Bot
+name: Run ICT PO (5 & 2 )
 
 on:
   workflow_dispatch: # Adds a manual "Run workflow" button so you can test anytime
