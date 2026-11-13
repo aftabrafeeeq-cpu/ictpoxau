@@ -7,11 +7,9 @@ import yfinance as yf
 from datetime import datetime
 import pytz
 
-# Uses the new dedicated Bot Token and Sweep Chat ID
-BOT_TOKEN = os.environ.get("9009980984:AAG1YqiIwYVCpjv5hMIsCFzsk-3PgFuaUv4", "").strip()
-CHAT_ID   = os.environ.get(
-    "SWEEP_CHAT_ID", os.environ.get("-1004443758054", "")
-).strip()
+# Hardcoded Telegram credentials for the Sweeps Bot
+BOT_TOKEN = "9009980984:AAG1YqiIwYVCpjv5hMIsCFzsk-3PgFuaUv4"
+CHAT_ID = "-1004443758054"
 EVENT_NAME = os.environ.get("GITHUB_EVENT_NAME", "")
 
 SWEEP_SYMBOLS = {
