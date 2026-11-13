@@ -16,6 +16,7 @@ SWEEP_SYMBOLS = {
     "XAUUSD": "GC=F",
     "USCRUDEOIL": "CL=F",
     "BTC": "BTC-USD",
+    "DXY": "DX-Y.NYB",
     "USTECH": "NQ=F",
     "NIFTY": "^NSEI",
     "SENSEX": "^BSESN",
