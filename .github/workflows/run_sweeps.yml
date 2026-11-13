@@ -1,0 +1,29 @@
+name: Run ICT Sweeps Scanner (1H & 4H)
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-sweeps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install libraries
+        run: pip install yfinance pandas numpy requests pytz
+
+      - name: Run 1H & 4H Sweeps Bot
+        env:
+          BOT_TOKEN: ${{ secrets.SWEEP_BOT_TOKEN }}
+          SWEEP_CHAT_ID: ${{ secrets.SWEEP_CHAT_ID }}
+        run: python sweeps_bot.py
