@@ -8,9 +8,9 @@ from datetime import datetime
 import pytz
 
 # Uses the new dedicated Bot Token and Sweep Chat ID
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "").strip()
+BOT_TOKEN = os.environ.get("9009980984:AAG1YqiIwYVCpjv5hMIsCFzsk-3PgFuaUv4", "").strip()
 CHAT_ID   = os.environ.get(
-    "SWEEP_CHAT_ID", os.environ.get("CHAT_ID", "")
+    "SWEEP_CHAT_ID", os.environ.get("-1004443758054", "")
 ).strip()
 EVENT_NAME = os.environ.get("GITHUB_EVENT_NAME", "")
 
