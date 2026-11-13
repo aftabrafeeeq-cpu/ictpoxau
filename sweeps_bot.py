@@ -261,9 +261,9 @@ def main():
   last_4h_ts = {sym: None for sym in SWEEP_SYMBOLS}
 
   if EVENT_NAME == "workflow_dispatch":
+    assets_str = ", ".join(SWEEP_SYMBOLS.keys())
     send_telegram_Message(
-        "🧹 *ICT Sweeps Scanner (1H & 4H) Connected!*\n*Assets:* `XAUUSD,"
-        " USCRUDEOIL, BTC, USTECH, NIFTY, SENSEX, BANKNIFTY`"
+        f"🧹 *ICT Sweeps Scanner (1H & 4H) Connected!*\n*Assets:* `{assets_str}`"
     )
 
   while (time.time() - start_time) < MAX_RUNTIME_SECONDS:
